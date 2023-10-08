@@ -3,6 +3,8 @@ package com.example.userapi.controller;
 import com.example.userapi.dto.UserDto;
 import com.example.userapi.entity.User;
 import com.example.userapi.service.UserServices;
+import jakarta.websocket.server.PathParam;
+import org.mapstruct.control.MappingControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,18 +28,18 @@ public class UserController {
     }
 
     @PostMapping
-    public User add(@RequestBody User user){
-        return userServices.add(user);
+    public User add(@RequestBody User user,@RequestParam boolean isAdmin){
+        return userServices.add(user,isAdmin);
     }
 
     @PostMapping("/deactivate/{id}")
-    public User deactivate(@PathVariable long id){
-        return userServices.deactivate(id);
+    public User deactivate(@PathVariable long id, @RequestParam boolean isAdmin){
+        return userServices.deactivate(id,isAdmin);
     }
 
     @PostMapping("/activate/{id}")
-    public User activate(@PathVariable long id){
-        return userServices.activate(id);
+    public User activate(@PathVariable long id, @RequestParam boolean isAdmin){
+        return userServices.activate(id, isAdmin);
     }
 
 }

@@ -37,17 +37,26 @@ public class UserServices {
         return user;
     }
 
-    public User add(User user){
+    public User add(User user,boolean isAdmin){
+        if(!isAdmin){
+            throw new CustomException(ExceptionMessage.User_Is_Not_Admin);
+        }
         return repository.save(user);
     }
 
-    public User deactivate(long id){
+    public User deactivate(long id,boolean isAdmin){
         User user = repository.findById(id).orElseThrow(()->new CustomException(ExceptionMessage.User_Not_Found));
+        if(!isAdmin){
+            throw new CustomException(ExceptionMessage.User_Is_Not_Admin);
+        }
         user.setActive(false);
         return repository.save(user);
     }
-    public User activate(long id){
+    public User activate(long id,boolean isAdmin){
         User user = repository.findById(id).orElseThrow(()->new CustomException(ExceptionMessage.User_Not_Found));
+        if(!isAdmin){
+            throw new CustomException(ExceptionMessage.User_Is_Not_Admin);
+        }
         user.setActive(true);
         return repository.save(user);
     }
