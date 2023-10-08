@@ -1,7 +1,9 @@
 package com.example.userapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.mapstruct.control.MappingControl;
 
 @Entity
 @Table(name = "users")
@@ -19,6 +21,16 @@ public class User {
     private boolean isActive;
     @Column(name = "is_admin")
     private boolean isAdmin;
+
+    public User(){}
+
+    public User(long id, String username, String password, boolean isActive, boolean isAdmin) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.isActive = isActive;
+        this.isAdmin = isAdmin;
+    }
 
     public long getId() {
         return id;

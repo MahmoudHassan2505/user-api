@@ -1,5 +1,6 @@
 package com.example.userapi.controller;
 
+import com.example.userapi.dto.UserDto;
 import com.example.userapi.entity.User;
 import com.example.userapi.service.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class UserController {
         return userServices.findALl();
     }
 
+    @GetMapping("/login")
+        public User login(@RequestBody User user){
+        return userServices.loginIn(user.getUsername(),user.getPassword());
+    }
+
     @PostMapping
     public User add(@RequestBody User user){
         return userServices.add(user);
@@ -34,6 +40,7 @@ public class UserController {
         return userServices.activate(id);
     }
 
-
-
 }
+
+
+//password shouldn't return in api
