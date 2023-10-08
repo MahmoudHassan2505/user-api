@@ -18,12 +18,12 @@ public class UserController {
     UserServices userServices;
 
     @GetMapping
-    public List<User> findAll(){
+    public List<UserDto> findAll(){
         return userServices.findALl();
     }
 
     @GetMapping("/login")
-        public User login(@RequestBody User user){
+        public UserDto login(@RequestBody User user){
         return userServices.loginIn(user.getUsername(),user.getPassword());
     }
 
@@ -43,6 +43,3 @@ public class UserController {
     }
 
 }
-
-
-//password shouldn't return in api

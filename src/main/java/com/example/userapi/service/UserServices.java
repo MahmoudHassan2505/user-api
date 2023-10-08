@@ -1,18 +1,14 @@
 package com.example.userapi.service;
-
 import com.example.userapi.dto.UserDto;
 import com.example.userapi.dto.UserMapper;
 import com.example.userapi.entity.User;
 import com.example.userapi.exception.CustomException;
 import com.example.userapi.exception.ExceptionMessage;
 import com.example.userapi.repository.UserRepository;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,25 +17,30 @@ public class UserServices {
     @Autowired
     UserRepository repository;
 
-//    UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    @Autowired
+    private UserMapper userMapper;
 
-    public List<User> findALl(){
+    public List<UserDto> findALl(){
         List<User> users = repository.findAll();
-//        return users.stream().map((user)->userMapper.toDto(user)).collect(Collectors.toList());
-        return users;
+        return users.stream().map((user)->userMapper.toDTO(user)).collect(Collectors.toList());
+
     }
 
-    public User loginIn(String username,String password){
+    public UserDto loginIn(String username,String password){
         User user = repository.findUserByUsernameAndPassword(username,password).orElseThrow(()->new CustomException(ExceptionMessage.Login_Faild));
         if (!user.isActive()){
             throw new CustomException(ExceptionMessage.User_Is_Not_Active);
         }
-        return user;
+        return userMapper.toDTO(user);
     }
 
     public User add(User user,boolean isAdmin){
         if(!isAdmin){
             throw new CustomException(ExceptionMessage.User_Is_Not_Admin);
+        }
+        if (repository.countUsersByUsername(user.getUsername())!=0){
+            throw new CustomException(ExceptionMessage.Name_Already_Exist);
+
         }
         return repository.save(user);
     }

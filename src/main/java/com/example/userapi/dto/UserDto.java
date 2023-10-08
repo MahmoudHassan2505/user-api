@@ -1,5 +1,14 @@
 package com.example.userapi.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     private long id;
@@ -7,14 +16,6 @@ public class UserDto {
     private boolean isActive;
     private boolean isAdmin;
 
-    public UserDto(){}
-
-    public UserDto(long id, String username, boolean isActive, boolean isAdmin) {
-        this.id = id;
-        this.username = username;
-        this.isActive = isActive;
-        this.isAdmin = isAdmin;
-    }
 
     public long getId() {
         return id;
