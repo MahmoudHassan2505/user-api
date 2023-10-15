@@ -1,5 +1,6 @@
 package com.example.userapi.dto;
 
+import com.example.userapi.entity.Authority;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ public class UserDto {
     private long id;
     private String username;
     private boolean isActive;
-    private boolean isAdmin;
+    private Authority role;
 
 
     public long getId() {
@@ -41,11 +42,11 @@ public class UserDto {
         isActive = active;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public Authority getRole() {
+        return role;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setRole(Authority role) {
+        this.role = role;
     }
 }

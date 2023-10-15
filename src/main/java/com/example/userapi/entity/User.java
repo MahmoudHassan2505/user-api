@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import org.mapstruct.control.MappingControl;
 
+import javax.management.relation.Role;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -17,19 +19,20 @@ public class User {
     @Column(name = "password")
     @NotBlank(message = "Password is Required")
     private String password;
-    @Column(name = "is_active")
     private boolean isActive;
-    @Column(name = "is_admin")
-    private boolean isAdmin;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id", referencedColumnName = "id")
+    private Authority role;
 
     public User(){}
 
-    public User(long id, String username, String password, boolean isActive, boolean isAdmin) {
+    public User(long id, String username, String password, boolean isActive, Authority role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.isActive = isActive;
-        this.isAdmin = isAdmin;
+        this.role = role;
     }
 
     public long getId() {
@@ -64,11 +67,11 @@ public class User {
         isActive = active;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public Authority getRole() {
+        return role;
     }
 
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    public void setRole(Authority role) {
+        this.role = role;
     }
 }

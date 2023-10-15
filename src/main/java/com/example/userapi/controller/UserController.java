@@ -22,24 +22,24 @@ public class UserController {
         return userServices.findALl();
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
         public UserDto login(@RequestBody User user){
         return userServices.loginIn(user.getUsername(),user.getPassword());
     }
 
     @PostMapping
-    public User add(@RequestBody User user,@RequestParam boolean isAdmin){
-        return userServices.add(user,isAdmin);
+    public User add(@RequestBody User user){
+        return userServices.add(user);
     }
 
     @PostMapping("/deactivate/{id}")
-    public User deactivate(@PathVariable long id, @RequestParam boolean isAdmin){
-        return userServices.deactivate(id,isAdmin);
+    public User deactivate(@PathVariable long id){
+        return userServices.deactivate(id);
     }
 
     @PostMapping("/activate/{id}")
-    public User activate(@PathVariable long id, @RequestParam boolean isAdmin){
-        return userServices.activate(id, isAdmin);
+    public User activate(@PathVariable long id){
+        return userServices.activate(id);
     }
 
 }

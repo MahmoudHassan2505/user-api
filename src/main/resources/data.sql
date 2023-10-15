@@ -1,3 +1,5 @@
-INSERT INTO users(
-    username, password, is_active, is_admin)
-VALUES ('admin','admin',true,true),('mahmoud','mahmoud',true,false);
+INSERT INTO public.role(name)
+VALUES ('Admin'),('Coupon Manger'),('Product Manger'),('Stock Manger');
+
+INSERT INTO public.users(username, password, is_active, role_id)
+VALUES ('admin','admin',true,1);
